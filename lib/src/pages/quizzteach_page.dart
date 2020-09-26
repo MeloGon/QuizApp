@@ -21,10 +21,14 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
         ],
       ),
       body: Stack(children: [
-        Center(
-          child: SvgPicture.asset(
-            'assets/images/question.svg',
-            height: 140.0,
+        Opacity(
+          opacity: 0.2,
+          child: Container(
+            alignment: Alignment.center,
+            child: SvgPicture.asset(
+              'assets/images/question.svg',
+              height: 180.0,
+            ),
           ),
         ),
         SingleChildScrollView(

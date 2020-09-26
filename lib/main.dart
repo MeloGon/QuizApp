@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/src/pages/enter_page.dart';
+import 'package:flutter_quizapp/src/pages/listquizz_page.dart';
 import 'package:flutter_quizapp/src/pages/loginteach_page.dart';
 import 'package:flutter_quizapp/src/pages/menu_page.dart';
 import 'package:flutter_quizapp/src/pages/quizzteach_page.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         'loginteachpage': (BuildContext context) => LoginTeachPage(),
         'menupage': (BuildContext context) => MenuPage(),
         'quizzteachpage': (BuildContext context) => QuizzTeachPage(),
+        'listquizzpage': (BuildContext context) => ListQuizzPage(),
       },
     );
   }

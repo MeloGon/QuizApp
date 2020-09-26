@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/src/widgets/header_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class EnterPage extends StatefulWidget {
+class LoginTeachPage extends StatefulWidget {
   @override
-  _EnterPageState createState() => _EnterPageState();
+  _LoginTeachPageState createState() => _LoginTeachPageState();
 }
 
-class _EnterPageState extends State<EnterPage> {
+class _LoginTeachPageState extends State<LoginTeachPage> {
   var _screenSize;
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _EnterPageState extends State<EnterPage> {
               height: _screenSize.height * 0.3,
               width: double.infinity,
               child: SvgPicture.asset(
-                'assets/images/studentss.svg',
+                'assets/images/teacher.svg',
               ),
             ),
             Align(alignment: Alignment.bottomCenter, child: stackTitle()),
@@ -51,7 +51,7 @@ class _EnterPageState extends State<EnterPage> {
             child: Column(
               children: [
                 Text(
-                  'Recuerda usar tus nombres verdaderos para recibir tus resultados',
+                  'Ingresa tus credenciales para validar que eres un docente',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'quicksand', fontWeight: FontWeight.w600),
@@ -64,7 +64,7 @@ class _EnterPageState extends State<EnterPage> {
                   decoration: InputDecoration(
                     suffixIcon: Icon(Icons.people_outline),
                     border: OutlineInputBorder(),
-                    labelText: 'Nombres Completos',
+                    labelText: 'Usuario',
                   ),
                 ),
                 SizedBox(
@@ -73,27 +73,18 @@ class _EnterPageState extends State<EnterPage> {
                 TextField(
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.people_outline),
+                    suffixIcon: Icon(Icons.lock_open),
                     border: OutlineInputBorder(),
-                    labelText: 'Apellidos Completos',
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextField(
-                  style: TextStyle(fontFamily: 'quicksand'),
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.format_list_numbered),
-                    border: OutlineInputBorder(),
-                    labelText: 'Grado',
+                    labelText: 'Contraseña',
                   ),
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    return Navigator.pushNamed(context, 'quizzteachpage');
+                  },
                   child: Container(
                       height: 50.0,
                       width: MediaQuery.of(context).size.width * 0.8,
@@ -137,7 +128,7 @@ class _EnterPageState extends State<EnterPage> {
           alignment: Alignment.center,
           width: double.infinity,
           child: Text(
-            'CREA TU USUARIO',
+            'LOGIN',
             style: TextStyle(
                 fontSize: 20.0,
                 fontFamily: 'quicksand',

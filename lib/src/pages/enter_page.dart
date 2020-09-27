@@ -93,7 +93,9 @@ class _EnterPageState extends State<EnterPage> {
                   height: 20.0,
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    return Navigator.pushNamed(context, 'listquizzpage');
+                  },
                   child: Container(
                       height: 50.0,
                       width: MediaQuery.of(context).size.width * 0.8,

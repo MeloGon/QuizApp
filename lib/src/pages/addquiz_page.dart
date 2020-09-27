@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class QuizzTeachPage extends StatefulWidget {
+class AddQuizzPage extends StatefulWidget {
   @override
-  _QuizzTeachPageState createState() => _QuizzTeachPageState();
+  _AddQuizzPageState createState() => _AddQuizzPageState();
 }
 
-class _QuizzTeachPageState extends State<QuizzTeachPage> {
+class _AddQuizzPageState extends State<AddQuizzPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +23,10 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
         Opacity(
           opacity: 0.2,
           child: Container(
-            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: 80.0),
+            alignment: Alignment.topCenter,
             child: SvgPicture.asset(
-              'assets/images/question.svg',
+              'assets/images/createquizz.svg',
               height: 180.0,
             ),
           ),
@@ -37,7 +38,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
             child: Column(
               children: [
                 Text(
-                  'Pregunta 1',
+                  'Detalles del nuevo Quizz',
                   style: TextStyle(
                       fontFamily: 'quicksand',
                       fontSize: 20.0,
@@ -50,7 +51,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Enunciado de la pregunta',
+                    labelText: 'Titulo del Quizz',
                   ),
                 ),
                 SizedBox(
@@ -60,7 +61,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Alternativa 1 (Opcion Correcta)',
+                    labelText: 'Url de Imagen de fondo',
                   ),
                 ),
                 SizedBox(
@@ -70,40 +71,25 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Alternativa 2',
+                    labelText: 'Resumen del Quizz',
                   ),
                 ),
                 SizedBox(
                   height: 20.0,
-                ),
-                TextField(
-                  style: TextStyle(fontFamily: 'quicksand'),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Alternativa 3',
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextField(
-                  style: TextStyle(fontFamily: 'quicksand'),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Alternativa 4',
-                  ),
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    return Navigator.pushNamed(context, 'quizzteachpage');
+                  },
                   child: Container(
                       height: 50.0,
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       child: Center(
                           child: Text(
-                        'Agregar Pregunta',
+                        'Crear Quizz',
                         style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'quicksand',
@@ -122,7 +108,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: Center(
                           child: Text(
-                        'Terminar',
+                        'Cancelar',
                         style: TextStyle(
                             color: Colors.red,
                             fontFamily: 'quicksand',

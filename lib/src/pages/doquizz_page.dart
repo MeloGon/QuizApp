@@ -8,6 +8,10 @@ class DoQuizzPage extends StatefulWidget {
 class _DoQuizzPageState extends State<DoQuizzPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Center(
+        child: Text('preguntas quizz'),
+      ),
+    );
   }
 }

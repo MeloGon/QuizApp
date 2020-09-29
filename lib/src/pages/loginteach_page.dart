@@ -83,7 +83,8 @@ class _LoginTeachPageState extends State<LoginTeachPage> {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    return Navigator.pushNamed(context, 'listquizzpage');
+                    //return Navigator.pushNamed(context, 'listquizzpage');
+                    return Navigator.pushNamed(context, 'registerpage');
                   },
                   child: Container(
                       height: 50.0,

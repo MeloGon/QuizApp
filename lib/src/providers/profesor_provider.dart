@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_quizapp/src/models/quiz.dart';
 import 'package:http/http.dart' as http;
 
 class ProfesorProvider {
@@ -75,12 +76,23 @@ class ProfesorProvider {
     return true;
   }
 
-  Future<List<String>> viewQuizes() async {
+  Future<List<Quiz>> viewQuizes() async {
     final url = '$_url/profesor.json';
     final resp = await http.get(url);
-    final decodedData = json.decode(resp.body);
-    print(decodedData);
-    return [];
+    //final decodedData = json.decode(resp.body);
+    //print(decodedData);
+    final Map<String, dynamic> decodedData = json.decode(resp.body);
+    final List<Quiz> quizes = new List();
+    if (decodedData == null) return [];
+    decodedData.forEach((id, value) {
+      final quiztemp = Quiz.fromJson(value);
+      quiztemp.idQuiz = id;
+      quizes.add(quiztemp);
+    });
+
+    print(quizes);
+
+    return quizes;
   }
 
   // Future createUser(String user, String pass, String nameComplete) async {

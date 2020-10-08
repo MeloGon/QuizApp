@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quizapp/src/models/quiz.dart';
 import 'package:flutter_quizapp/src/providers/profesor_provider.dart';
 
 class ListQuizzPage extends StatelessWidget {
@@ -23,32 +24,30 @@ class ListQuizzPage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        child: Column(
-          children: [
-            FutureBuilder(
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: FutureBuilder(
               future: profesorProvider.viewQuizes(),
-              builder: (context, AsyncSnapshot<List<String>> snapshot) {
-                if (!snapshot.hasData) {
-                  return CircularProgressIndicator();
-                } else {
+              builder: (context, AsyncSnapshot<List<Quiz>> snapshot) {
+                if (snapshot.hasData) {
                   return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
-                      return itemListQuiz(context, snapshot.data[index]);
+                      return itemListQuiz(snapshot.data[index]);
                     },
                   );
+                } else {
+                  return Center(child: CircularProgressIndicator());
                 }
               },
-            )
-          ],
-        ),
-      ),
+            ),
+          )),
     );
   }
 
-  GestureDetector itemListQuiz(BuildContext context, dynamic data) {
-    print(data['nom_prof']);
+  Widget itemListQuiz(Quiz data) {
     return GestureDetector(
       onTap: () {},
       child: Container(
@@ -59,9 +58,9 @@ class ListQuizzPage extends StatelessWidget {
           child: Stack(
             children: [
               Image.network(
-                'https://pm1.narvii.com/7232/ecfea65be9f50a2d2276270ad63cd6cbe3025adar1-820-720v2_00.jpg',
+                data.urlQuiz,
                 fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width,
+                width: double.infinity,
               ),
               Container(
                 color: Colors.black26,
@@ -70,7 +69,7 @@ class ListQuizzPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        data['nom_prof'],
+                        data.tittleQuiz,
                         style: TextStyle(
                             fontFamily: 'quicksand',
                             fontSize: 18,
@@ -81,7 +80,7 @@ class ListQuizzPage extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        'Todo lo que respecta a sumas y restas',
+                        data.descQuiz,
                         style: TextStyle(
                             fontFamily: 'quicksand',
                             fontSize: 13,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quizapp/src/providers/profesor_provider.dart';
 import 'package:flutter_quizapp/src/widgets/header_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginTeachPage extends StatefulWidget {
   @override
@@ -9,6 +11,17 @@ class LoginTeachPage extends StatefulWidget {
 
 class _LoginTeachPageState extends State<LoginTeachPage> {
   var _screenSize;
+  ProfesorProvider profesorProvider = new ProfesorProvider();
+  TextEditingController txtuserController = new TextEditingController();
+  TextEditingController txtpassController = new TextEditingController();
+
+  @override
+  void dispose() {
+    txtuserController.dispose();
+    txtpassController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
@@ -51,7 +64,7 @@ class _LoginTeachPageState extends State<LoginTeachPage> {
             child: Column(
               children: [
                 Text(
-                  'Ingresa tus credenciales para validar que eres un docente',
+                  'Ingresa tus credenciales para poder empezar',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'quicksand', fontWeight: FontWeight.w600),
@@ -60,6 +73,7 @@ class _LoginTeachPageState extends State<LoginTeachPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: txtuserController,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     suffixIcon: Icon(Icons.people_outline),
@@ -71,6 +85,8 @@ class _LoginTeachPageState extends State<LoginTeachPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  obscureText: true,
+                  controller: txtpassController,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     suffixIcon: Icon(Icons.lock_open),
@@ -82,9 +98,17 @@ class _LoginTeachPageState extends State<LoginTeachPage> {
                   height: 20.0,
                 ),
                 RaisedButton(
-                  onPressed: () {
-                    //return Navigator.pushNamed(context, 'listquizzpage');
-                    return Navigator.pushNamed(context, 'registerpage');
+                  onPressed: () async {
+                    var rsp = await profesorProvider.loginUser(
+                        txtuserController.text, txtpassController.text);
+                    if (rsp == true) {
+                      toast('Credenciales Correctos', Colors.white,
+                          Color(0xff00B0FF));
+                      Navigator.pushNamed(context, 'listquizzpage');
+                    } else {
+                      toast('Credenciales Incorrectos vuelva a intentarlo',
+                          Colors.white, Colors.red);
+                    }
                   },
                   child: Container(
                       height: 50.0,
@@ -103,11 +127,23 @@ class _LoginTeachPageState extends State<LoginTeachPage> {
                 SizedBox(
                   height: 10.0,
                 ),
-                Text(
-                  'Copyright @2020 App Prof. Karen Todos los derechos reservados.',
-                  style: TextStyle(fontFamily: 'quicksand', fontSize: 12.0),
-                  textAlign: TextAlign.center,
-                )
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, 'registerpage'),
+                  child: RichText(
+                      text: TextSpan(
+                          text: 'No tienes aun una cuenta ?',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'quicksand'),
+                          children: <TextSpan>[
+                        TextSpan(
+                          text: ' Registrate Aqui',
+                          style: TextStyle(
+                              color: Colors.blueAccent, fontSize: 14.5),
+                        )
+                      ])),
+                ),
               ],
             ),
           ),
@@ -150,5 +186,16 @@ class _LoginTeachPageState extends State<LoginTeachPage> {
               end: Alignment.topRight,
               colors: [Color(0xff44C5FF), Color(0xff84D9FF)]),
         ));
+  }
+
+  void toast(String msg, Color colorTexto, Color colorbg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: colorbg,
+        textColor: colorTexto,
+        fontSize: 14.0);
   }
 }

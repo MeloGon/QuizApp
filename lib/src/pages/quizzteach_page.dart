@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quizapp/src/providers/profesor_provider.dart';
 import 'package:flutter_svg/svg.dart';
 
 class QuizzTeachPage extends StatefulWidget {
+  final String idquiz;
+  QuizzTeachPage({this.idquiz});
   @override
   _QuizzTeachPageState createState() => _QuizzTeachPageState();
 }
 
 class _QuizzTeachPageState extends State<QuizzTeachPage> {
+  ProfesorProvider profesorProvider = new ProfesorProvider();
+  TextEditingController txtEnun = new TextEditingController();
+  TextEditingController txtCorrect = new TextEditingController();
+  TextEditingController txtAlt2 = new TextEditingController();
+  TextEditingController txtAlt3 = new TextEditingController();
+  TextEditingController txtAlt4 = new TextEditingController();
+  int cont = 1;
+
+  @override
+  void dispose() {
+    txtEnun.dispose();
+    txtCorrect.dispose();
+    txtAlt2.dispose();
+    txtAlt3.dispose();
+    txtAlt4.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +58,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
             child: Column(
               children: [
                 Text(
-                  'Pregunta 1',
+                  'Pregunta $cont',
                   style: TextStyle(
                       fontFamily: 'quicksand',
                       fontSize: 20.0,
@@ -47,6 +68,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: txtEnun,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -57,6 +79,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: txtCorrect,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -67,6 +90,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: txtAlt2,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -77,6 +101,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: txtAlt3,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -87,6 +112,7 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: txtAlt4,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -97,7 +123,25 @@ class _QuizzTeachPageState extends State<QuizzTeachPage> {
                   height: 20.0,
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    var resp = await profesorProvider.createQuest(
+                        widget.idquiz,
+                        txtEnun.text,
+                        txtCorrect.text,
+                        txtAlt2.text,
+                        txtAlt3.text,
+                        txtAlt4.text);
+
+                    txtEnun.clear();
+                    txtCorrect.clear();
+                    txtAlt2.clear();
+                    txtAlt3.clear();
+                    txtAlt4.clear();
+
+                    setState(() {
+                      cont = cont + 1;
+                    });
+                  },
                   child: Container(
                       height: 50.0,
                       width: MediaQuery.of(context).size.width * 0.4,

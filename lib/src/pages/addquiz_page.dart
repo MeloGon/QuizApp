@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quizapp/src/pages/quizzteach_page.dart';
+import 'package:flutter_quizapp/src/providers/profesor_provider.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AddQuizzPage extends StatefulWidget {
   @override
@@ -7,6 +10,19 @@ class AddQuizzPage extends StatefulWidget {
 }
 
 class _AddQuizzPageState extends State<AddQuizzPage> {
+  TextEditingController txtTitleq = new TextEditingController();
+  TextEditingController txtUrlq = new TextEditingController();
+  TextEditingController txtDescq = new TextEditingController();
+  ProfesorProvider profesorProvider = new ProfesorProvider();
+
+  @override
+  void dispose() {
+    txtDescq.dispose();
+    txtUrlq.dispose();
+    txtTitleq.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +64,7 @@ class _AddQuizzPageState extends State<AddQuizzPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: txtTitleq,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -58,6 +75,7 @@ class _AddQuizzPageState extends State<AddQuizzPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: txtUrlq,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -68,6 +86,7 @@ class _AddQuizzPageState extends State<AddQuizzPage> {
                   height: 20.0,
                 ),
                 TextField(
+                  controller: txtDescq,
                   style: TextStyle(fontFamily: 'quicksand'),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -81,8 +100,17 @@ class _AddQuizzPageState extends State<AddQuizzPage> {
                   height: 20.0,
                 ),
                 RaisedButton(
-                  onPressed: () {
-                    return Navigator.pushNamed(context, 'quizzteachpage');
+                  onPressed: () async {
+                    var resp = await profesorProvider.createQuiz(
+                        txtTitleq.text, txtUrlq.text, txtDescq.text);
+                    //return Navigator.pushNamed(context, 'quizzteachpage');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => QuizzTeachPage(
+                                idquiz: resp,
+                              )),
+                    );
                   },
                   child: Container(
                       height: 50.0,
@@ -122,5 +150,16 @@ class _AddQuizzPageState extends State<AddQuizzPage> {
         ),
       ]),
     );
+  }
+
+  void toast(String msg, Color colorTexto, Color colorbg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: colorbg,
+        textColor: colorTexto,
+        fontSize: 14.0);
   }
 }

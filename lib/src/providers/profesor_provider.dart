@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_quizapp/src/models/question.dart';
 import 'package:flutter_quizapp/src/models/quiz.dart';
 import 'package:http/http.dart' as http;
 
@@ -62,7 +63,7 @@ class ProfesorProvider {
 
   Future createQuest(String nodeq, String enunq, String correcq, String firstq,
       String secq, String thirdq) async {
-    final url = '$_url/profesor/$nodeq.json';
+    final url = '$_url/profesor/$nodeq/quest_quiz.json';
     var data = {
       "enunciate": enunq,
       "correct_opt": correcq,
@@ -91,5 +92,18 @@ class ProfesorProvider {
     return quizes;
   }
 
-  Future resolveQuiz() async {}
+  Future<List<Question>> resolveQuiz(String idquiz) async {
+    final url = '$_url/profesor/$idquiz/quest_quiz.json';
+    final resp = await http.get(url);
+    final Map<String, dynamic> decodedData = json.decode(resp.body);
+    final List<Question> questions = new List();
+    if (decodedData == null) return [];
+    decodedData.forEach((id, value) {
+      final questiontemp = Question.fromJson(value);
+      questiontemp.idQuest = id;
+      questions.add(questiontemp);
+    });
+    print(questions);
+    return questions;
+  }
 }

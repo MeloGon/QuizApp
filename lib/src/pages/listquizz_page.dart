@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/src/models/quiz.dart';
+import 'package:flutter_quizapp/src/pages/doquizz_page.dart';
 import 'package:flutter_quizapp/src/providers/profesor_provider.dart';
 
 class ListQuizzPage extends StatelessWidget {
@@ -52,7 +53,13 @@ class ListQuizzPage extends StatelessWidget {
   Widget itemListQuiz(BuildContext context, Quiz data) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'doquizzpage');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DoQuizzPage(
+                    idquiz: data.idQuiz,
+                  )),
+        );
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),

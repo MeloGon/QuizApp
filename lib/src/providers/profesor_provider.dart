@@ -72,15 +72,12 @@ class ProfesorProvider {
     };
     final resp = await http.post(url, body: json.encode(data));
     final decodedData = json.decode(resp.body);
-    //print(decodedData);
     return true;
   }
 
   Future<List<Quiz>> viewQuizes() async {
     final url = '$_url/profesor.json';
     final resp = await http.get(url);
-    //final decodedData = json.decode(resp.body);
-    //print(decodedData);
     final Map<String, dynamic> decodedData = json.decode(resp.body);
     final List<Quiz> quizes = new List();
     if (decodedData == null) return [];
@@ -89,26 +86,10 @@ class ProfesorProvider {
       quiztemp.idQuiz = id;
       quizes.add(quiztemp);
     });
-
     print(quizes);
 
     return quizes;
   }
 
-  // Future createUser(String user, String pass, String nameComplete) async {
-  //   final url = '$_url/profesor.json';
-  //   var data = {"user_prof": user, "pass_prof": pass, "nom_prof": nameComplete};
-  //   final resp = await http.post(url, body: jsonEncode(data));
-  //   final decodedData = json.decode(resp.body);
-  //   print(decodedData);
-  //   return true;
-  // }
-
-  // Future loginUser(String user, String pass) async {
-  //   final url = '$_url/profesor.json';
-
-  //   final resp = await http.get(url);
-  //   print(resp.body);
-
-  // }
+  Future resolveQuiz() async {}
 }

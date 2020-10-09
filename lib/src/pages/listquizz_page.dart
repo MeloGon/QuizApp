@@ -17,7 +17,9 @@ class ListQuizzPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, 'enterpage');
+              },
               child: Text('Cerrar Sesion',
                   style:
                       TextStyle(fontFamily: 'quicksand', color: Colors.white)))
@@ -35,7 +37,7 @@ class ListQuizzPage extends StatelessWidget {
                   return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
-                      return itemListQuiz(snapshot.data[index]);
+                      return itemListQuiz(context, snapshot.data[index]);
                     },
                   );
                 } else {
@@ -47,11 +49,13 @@ class ListQuizzPage extends StatelessWidget {
     );
   }
 
-  Widget itemListQuiz(Quiz data) {
+  Widget itemListQuiz(BuildContext context, Quiz data) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, 'doquizzpage');
+      },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24),
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
         height: 150,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),

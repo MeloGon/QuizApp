@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/src/models/question.dart';
+import 'package:flutter_quizapp/src/pages/question_page.dart';
 import 'package:flutter_quizapp/src/providers/profesor_provider.dart';
 
 class DoQuizzPage extends StatefulWidget {
@@ -11,6 +12,12 @@ class DoQuizzPage extends StatefulWidget {
 
 class _DoQuizzPageState extends State<DoQuizzPage> {
   ProfesorProvider profesorProvider = new ProfesorProvider();
+  int correct = 0;
+  int incorrect = 0;
+  int numQuest = 0;
+  Color trans = Colors.transparent;
+  List<Question> questions = new List<Question>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,59 +37,20 @@ class _DoQuizzPageState extends State<DoQuizzPage> {
       future: profesorProvider.resolveQuiz(widget.idquiz),
       builder: (context, AsyncSnapshot<List<Question>> snapshot) {
         if (snapshot.hasData) {
-          return ListView.builder(
-            itemCount: snapshot.data.length,
+          questions = snapshot.data;
+          return PageView.builder(
+            itemCount: questions.length,
             itemBuilder: (context, index) {
-              return itemQuest(snapshot.data[index]);
+              return QuestionPage(
+                question: questions[index],
+                number: index + 1,
+              );
             },
           );
         } else {
           return Center(child: CircularProgressIndicator());
         }
       },
-    );
-  }
-
-  Widget itemQuest(Question data) {
-    return ListTile(
-      leading: Icon(Icons.announcement),
-      title: Text(data.enunciate),
-      subtitle: Column(
-        children: [
-          Row(
-            children: [
-              Radio(
-                activeColor: Color(0xFF6200EE),
-              ),
-              Text(data.correctOpt),
-            ],
-          ),
-          Row(
-            children: [
-              Radio(
-                activeColor: Color(0xFF6200EE),
-              ),
-              Text(data.firstOpt),
-            ],
-          ),
-          Row(
-            children: [
-              Radio(
-                activeColor: Color(0xFF6200EE),
-              ),
-              Text(data.secOpt),
-            ],
-          ),
-          Row(
-            children: [
-              Radio(
-                activeColor: Color(0xFF6200EE),
-              ),
-              Text(data.thirdOpt),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

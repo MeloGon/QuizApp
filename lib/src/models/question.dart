@@ -24,6 +24,7 @@ class Question {
   String firstOpt;
   String secOpt;
   String thirdOpt;
+  bool isSelected = false;
 
   factory Question.fromJson(Map<String, dynamic> json) => Question(
         idQuest: json["id_quest"] == null ? null : json["id_quest"],

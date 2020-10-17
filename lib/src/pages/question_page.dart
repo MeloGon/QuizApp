@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/src/models/question.dart';
+import 'package:flutter_quizapp/src/widgets/questionopt_widget.dart';
 
 class QuestionPage extends StatefulWidget {
   final Question question;
@@ -13,10 +14,10 @@ class QuestionPage extends StatefulWidget {
 class _QuestionPageState extends State<QuestionPage> {
   List<String> options = [];
   Color trans = Colors.transparent;
-  bool isSelected = false;
+
   @override
   void initState() {
-    fillOptions(widget.question);
+    //fillOptions(widget.question);
     super.initState();
   }
 
@@ -52,7 +53,10 @@ class _QuestionPageState extends State<QuestionPage> {
                 child: ListView.builder(
                   itemCount: options.length,
                   itemBuilder: (context, index) {
-                    return itemAns(options[index]);
+                    return QuestionOpt(
+                      opt: options[index],
+                      isSelected: false,
+                    );
                   },
                 ),
               ),
@@ -63,27 +67,17 @@ class _QuestionPageState extends State<QuestionPage> {
     );
   }
 
-  void fillOptions(Question question) {
-    options.add(question.correctOpt);
-    options.add(question.firstOpt);
-    options.add(question.secOpt);
-    options.add(question.thirdOpt);
-    options.shuffle();
-  }
+  // void fillOptions(Question question) {
+  //   options.add(question.correctOpt);
+  //   options.add(question.firstOpt);
+  //   options.add(question.secOpt);
+  //   options.add(question.thirdOpt);
+  //   options.shuffle();
+  // }
 
   Widget itemAns(String option) {
     return ListTile(
-      onTap: () {
-        setState(() {
-          if (isSelected == false) {
-            trans = Colors.red;
-            isSelected = true;
-          } else {
-            trans = Colors.transparent;
-            isSelected = false;
-          }
-        });
-      },
+      onTap: () {},
       title: Row(
         children: [
           CircleAvatar(

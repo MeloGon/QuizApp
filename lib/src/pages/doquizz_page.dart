@@ -12,23 +12,14 @@ class DoQuizzPage extends StatefulWidget {
 
 class _DoQuizzPageState extends State<DoQuizzPage> {
   ProfesorProvider profesorProvider = new ProfesorProvider();
-  int correct = 0;
-  int incorrect = 0;
-  int numQuest = 0;
-  Color trans = Colors.transparent;
   List<Question> questions = new List<Question>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Preguntas"),
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: futureQuestions(),
-      ),
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: futureQuestions(),
     );
   }
 
@@ -38,17 +29,13 @@ class _DoQuizzPageState extends State<DoQuizzPage> {
       builder: (context, AsyncSnapshot<List<Question>> snapshot) {
         if (snapshot.hasData) {
           questions = snapshot.data;
-          return PageView.builder(
-            itemCount: questions.length,
-            itemBuilder: (context, index) {
-              return QuestionPage(
-                question: questions[index],
-                number: index + 1,
-              );
-            },
-          );
+          return QuestionPage(questions: questions);
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         }
       },
     );

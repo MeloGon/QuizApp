@@ -5,17 +5,29 @@ import 'package:flutter_quizapp/src/widgets/optiontile_widget.dart';
 class QuestionPage extends StatefulWidget {
   final List<Question> questions;
   QuestionPage({this.questions});
+
   @override
   _QuestionPageState createState() => _QuestionPageState();
 }
 
+int _correct = 0;
+int _incorrect = 0;
+
 class _QuestionPageState extends State<QuestionPage> {
+  int total = 0;
   Color colortoshow = Colors.indigoAccent;
   Color right = Colors.green;
   Color wrong = Colors.red;
   int marks = 0;
   int i = 1;
   bool disableAnswer = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _correct = 0;
+    _incorrect = 0;
+  }
 
   Question getQuestionModelFromDatasnapshot(Question oneQuestion) {
     Question questionModel = new Question();
@@ -68,7 +80,13 @@ class _QuestionPageState extends State<QuestionPage> {
                           widget.questions[index]),
                       index: index,
                     );
-                  })
+                  }),
+              RaisedButton(
+                onPressed: () {
+                  print(_correct.toString());
+                },
+                child: Text('Terminar Quiz'),
+              )
             ],
           ),
         ),
@@ -116,11 +134,13 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
                   setState(() {
                     optionSelected = widget.questionModel.firstOpt;
                     widget.questionModel.isSelected = true;
+                    _correct = _correct + 1;
                   });
                 } else {
                   setState(() {
                     optionSelected = widget.questionModel.firstOpt;
                     widget.questionModel.isSelected = true;
+                    _incorrect = _incorrect - 1;
                   });
                 }
               }
@@ -144,11 +164,13 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
                   setState(() {
                     optionSelected = widget.questionModel.secOpt;
                     widget.questionModel.isSelected = true;
+                    _correct = _correct + 1;
                   });
                 } else {
                   setState(() {
                     optionSelected = widget.questionModel.secOpt;
                     widget.questionModel.isSelected = true;
+                    _incorrect = _incorrect - 1;
                   });
                 }
               }
@@ -172,11 +194,13 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
                   setState(() {
                     optionSelected = widget.questionModel.thirdOpt;
                     widget.questionModel.isSelected = true;
+                    _correct = _correct + 1;
                   });
                 } else {
                   setState(() {
                     optionSelected = widget.questionModel.thirdOpt;
                     widget.questionModel.isSelected = true;
+                    _incorrect = _incorrect - 1;
                   });
                 }
               }
@@ -200,11 +224,13 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
                   setState(() {
                     optionSelected = widget.questionModel.fourthOpt;
                     widget.questionModel.isSelected = true;
+                    _correct = _correct + 1;
                   });
                 } else {
                   setState(() {
                     optionSelected = widget.questionModel.fourthOpt;
                     widget.questionModel.isSelected = true;
+                    _incorrect = _incorrect - 1;
                   });
                 }
               }

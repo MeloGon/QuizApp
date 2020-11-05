@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/src/models/question.dart';
 import 'package:flutter_quizapp/src/widgets/optiontile_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class QuestionPage extends StatefulWidget {
   final List<Question> questions;
@@ -84,6 +85,7 @@ class _QuestionPageState extends State<QuestionPage> {
               RaisedButton(
                 onPressed: () {
                   print(_correct.toString());
+                  toast("tu puntaje es $_correct", Colors.black, Colors.white);
                 },
                 child: Text('Terminar Quiz'),
               )
@@ -92,6 +94,17 @@ class _QuestionPageState extends State<QuestionPage> {
         ),
       ),
     );
+  }
+
+  void toast(String msg, Color colorTexto, Color colorbg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: colorbg,
+        textColor: colorTexto,
+        fontSize: 14.0);
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/src/models/question.dart';
+import 'package:flutter_quizapp/src/widgets/optiontile_widget.dart';
 
 class QuestionPage extends StatefulWidget {
   final List<Question> questions;
@@ -15,10 +16,211 @@ class _QuestionPageState extends State<QuestionPage> {
   int marks = 0;
   int i = 1;
   bool disableAnswer = false;
+
+  Question getQuestionModelFromDatasnapshot(Question oneQuestion) {
+    Question questionModel = new Question();
+
+    questionModel.enunciate = oneQuestion.enunciate;
+
+    /// shuffling the options
+    List<String> options = [
+      oneQuestion.firstOpt,
+      oneQuestion.secOpt,
+      oneQuestion.thirdOpt,
+      oneQuestion.fourthOpt
+    ];
+    options.shuffle();
+
+    questionModel.firstOpt = options[0];
+    questionModel.secOpt = options[1];
+    questionModel.thirdOpt = options[2];
+    questionModel.fourthOpt = options[3];
+    questionModel.correctOpt = oneQuestion.firstOpt;
+    questionModel.isSelected = false;
+
+    print(questionModel.correctOpt.toLowerCase());
+
+    return questionModel;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Preguntas'),
+        elevation: 0.0,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              ListView.builder(
+                  itemCount: widget.questions.length,
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return QuizPlayTile(
+                      questionModel: getQuestionModelFromDatasnapshot(
+                          widget.questions[index]),
+                      index: index,
+                    );
+                  })
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class QuizPlayTile extends StatefulWidget {
+  final Question questionModel;
+  final int index;
+
+  QuizPlayTile({@required this.questionModel, @required this.index});
+
+  @override
+  _QuizPlayTileState createState() => _QuizPlayTileState();
+}
+
+class _QuizPlayTileState extends State<QuizPlayTile> {
+  String optionSelected = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              "Q${widget.index + 1} ${widget.questionModel.enunciate}",
+              style:
+                  TextStyle(fontSize: 18, color: Colors.black.withOpacity(0.8)),
+            ),
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          GestureDetector(
+            onTap: () {
+              if (!widget.questionModel.isSelected) {
+                ///correct
+                if (widget.questionModel.firstOpt ==
+                    widget.questionModel.correctOpt) {
+                  setState(() {
+                    optionSelected = widget.questionModel.firstOpt;
+                    widget.questionModel.isSelected = true;
+                  });
+                } else {
+                  setState(() {
+                    optionSelected = widget.questionModel.firstOpt;
+                    widget.questionModel.isSelected = true;
+                  });
+                }
+              }
+            },
+            child: OptionTile(
+              option: "A",
+              description: "${widget.questionModel.firstOpt}",
+              correctAnswer: widget.questionModel.correctOpt,
+              optionSelected: optionSelected,
+            ),
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          GestureDetector(
+            onTap: () {
+              if (!widget.questionModel.isSelected) {
+                ///correct
+                if (widget.questionModel.secOpt ==
+                    widget.questionModel.correctOpt) {
+                  setState(() {
+                    optionSelected = widget.questionModel.secOpt;
+                    widget.questionModel.isSelected = true;
+                  });
+                } else {
+                  setState(() {
+                    optionSelected = widget.questionModel.secOpt;
+                    widget.questionModel.isSelected = true;
+                  });
+                }
+              }
+            },
+            child: OptionTile(
+              option: "B",
+              description: "${widget.questionModel.secOpt}",
+              correctAnswer: widget.questionModel.correctOpt,
+              optionSelected: optionSelected,
+            ),
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          GestureDetector(
+            onTap: () {
+              if (!widget.questionModel.isSelected) {
+                ///correct
+                if (widget.questionModel.thirdOpt ==
+                    widget.questionModel.correctOpt) {
+                  setState(() {
+                    optionSelected = widget.questionModel.thirdOpt;
+                    widget.questionModel.isSelected = true;
+                  });
+                } else {
+                  setState(() {
+                    optionSelected = widget.questionModel.thirdOpt;
+                    widget.questionModel.isSelected = true;
+                  });
+                }
+              }
+            },
+            child: OptionTile(
+              option: "C",
+              description: "${widget.questionModel.thirdOpt}",
+              correctAnswer: widget.questionModel.correctOpt,
+              optionSelected: optionSelected,
+            ),
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          GestureDetector(
+            onTap: () {
+              if (!widget.questionModel.isSelected) {
+                ///correct
+                if (widget.questionModel.fourthOpt ==
+                    widget.questionModel.correctOpt) {
+                  setState(() {
+                    optionSelected = widget.questionModel.fourthOpt;
+                    widget.questionModel.isSelected = true;
+                  });
+                } else {
+                  setState(() {
+                    optionSelected = widget.questionModel.fourthOpt;
+                    widget.questionModel.isSelected = true;
+                  });
+                }
+              }
+            },
+            child: OptionTile(
+              option: "D",
+              description: "${widget.questionModel.fourthOpt}",
+              correctAnswer: widget.questionModel.correctOpt,
+              optionSelected: optionSelected,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
     );
   }
 }

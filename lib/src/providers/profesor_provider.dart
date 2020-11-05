@@ -66,10 +66,10 @@ class ProfesorProvider {
     final url = '$_url/profesor/$nodeq/quest_quiz.json';
     var data = {
       "enunciate": enunq,
-      "correct_opt": correcq,
       "first_opt": firstq,
       "sec_opt": secq,
       "third_opt": thirdq,
+      "fourth_opt": correcq,
     };
     final resp = await http.post(url, body: json.encode(data));
     final decodedData = json.decode(resp.body);

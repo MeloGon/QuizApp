@@ -85,7 +85,52 @@ class _QuestionPageState extends State<QuestionPage> {
               RaisedButton(
                 onPressed: () {
                   print(_correct.toString());
-                  toast("tu puntaje es $_correct", Colors.black, Colors.white);
+                  //toast("tu puntaje es $_correct", Colors.black, Colors.white);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  20.0)), //this right here
+                          child: Container(
+                            height: 400,
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 250,
+                                    width: 200,
+                                    child: Image(
+                                        image: AssetImage(
+                                            'assets/images/checked.gif')),
+                                  ),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText:
+                                            'What do you want to remember?'),
+                                  ),
+                                  SizedBox(
+                                    width: 320.0,
+                                    child: RaisedButton(
+                                      onPressed: () {},
+                                      child: Text(
+                                        "Save",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      color: const Color(0xFF1BC0C5),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      });
                 },
                 child: Text('Terminar Quiz'),
               )
@@ -130,7 +175,7 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              "Q${widget.index + 1} ${widget.questionModel.enunciate}",
+              "Preg. ${widget.index + 1} ${widget.questionModel.enunciate}",
               style:
                   TextStyle(fontSize: 18, color: Colors.black.withOpacity(0.8)),
             ),

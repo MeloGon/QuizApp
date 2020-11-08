@@ -99,6 +99,7 @@ class _LoginTeachPageState extends State<LoginTeachPage> {
                 ),
                 RaisedButton(
                   onPressed: () async {
+                    toast('Un momento porfavor ..', Colors.black, Colors.white);
                     var rsp = await profesorProvider.loginUser(
                         txtuserController.text, txtpassController.text);
                     if (rsp == true) {

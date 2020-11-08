@@ -19,7 +19,7 @@ class ListQuizzPage extends StatelessWidget {
         actions: [
           FlatButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'enterpage');
+                Navigator.pushNamed(context, 'menupage');
               },
               child: Text('Cerrar Sesion',
                   style:

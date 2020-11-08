@@ -176,8 +176,10 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               "Preg. ${widget.index + 1} ${widget.questionModel.enunciate}",
-              style:
-                  TextStyle(fontSize: 18, color: Colors.black.withOpacity(0.8)),
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black.withOpacity(0.8),
+                  fontFamily: 'quicksand'),
             ),
           ),
           SizedBox(

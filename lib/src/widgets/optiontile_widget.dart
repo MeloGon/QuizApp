@@ -38,6 +38,7 @@ class _OptionTileState extends State<OptionTile> {
             child: Text(
               widget.option,
               style: TextStyle(
+                fontFamily: 'quicksand',
                 color: widget.optionSelected == widget.description
                     ? Colors.white
                     : Colors.grey,
@@ -49,7 +50,8 @@ class _OptionTileState extends State<OptionTile> {
           ),
           Text(
             widget.description,
-            style: TextStyle(fontSize: 17, color: Colors.black54),
+            style: TextStyle(
+                fontSize: 17, color: Colors.black54, fontFamily: 'quicksand'),
           )
         ],
       ),
